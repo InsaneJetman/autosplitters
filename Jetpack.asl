@@ -10,6 +10,13 @@ state("DOSBOX")
     byte EditState : 0x34B6B0, 0x23244;
 }
 
+startup
+{
+    settings.Add("gem_split", false, "Gem Splits");
+    settings.Add("treasure_split", false, "Treasure Splits");
+    settings.Add("death_reset", false, "Reset on Death");
+}
+
 init
 {
     if (current.PrePlay == 0xFF) vars.State = current.PlayState;
@@ -18,6 +25,7 @@ init
     vars.OldState = vars.State;
     vars.ExpectLevelUp = false;
     vars.Split = false;
+    vars.Reset = false;
 }
 
 update
@@ -26,6 +34,7 @@ update
     if (current.PrePlay == 0xFF) vars.State = current.PlayState;
     else if (current.PreEdit == 0xFF) vars.State = current.EditState;
     else vars.State = 0xFF;
+
     vars.Split = false;
     if (vars.State == 4 && vars.OldState == 0) {
         vars.Split = true;
@@ -34,6 +43,18 @@ update
     if (current.Level != old.Level) {
         if (!vars.ExpectLevelUp) vars.Split = true;
         vars.ExpectLevelUp = false;
+    }
+
+    if (current.Score - old.Score == 5) {
+        if (settings["gem_split"]) vars.Split = true;
+    }
+    else if (current.Score - old.Score > 5) {
+        if (settings["treasure_split"]) vars.Split = true;
+    }
+
+    vars.Reset = false;
+    if (settings["death_reset"] && vars.State != 0 && vars.State != 4 && vars.OldState == 0) {
+        vars.Reset = true;
     }
 }
 
@@ -50,4 +71,9 @@ split
 isLoading
 {
     return vars.State != 0;
+}
+
+reset
+{
+    return vars.Reset;
 }
