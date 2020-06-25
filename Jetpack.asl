@@ -2,12 +2,12 @@
 
 state("DOSBOX")
 {
-    int  Score     : 0x34B6B0, 0x21D19;
-    byte Level     : 0x34B6B0, 0x21D69;
-    byte PrePlay   : 0x34B6B0, 0x2328C;
-    byte PlayState : 0x34B6B0, 0x232A4;
-    byte PreEdit   : 0x34B6B0, 0x2322C;
-    byte EditState : 0x34B6B0, 0x23244;
+    int  Score     : 0x193A1A0, 0x21D19;
+    byte Level     : 0x193A1A0, 0x21D69;
+    byte PrePlay   : 0x193A1A0, 0x2328C;
+    byte PlayState : 0x193A1A0, 0x232A4;
+    byte PreEdit   : 0x193A1A0, 0x2322C;
+    byte EditState : 0x193A1A0, 0x23244;
 }
 
 startup
