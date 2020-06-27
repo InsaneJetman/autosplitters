@@ -2,20 +2,27 @@
 
 state("DOSBOX")
 {
-    string26 Regular   : 0x193A1A0, 0x626F4;
-    string26 Christmas : 0x193A1A0, 0x62314;
-    int  JetScore      : 0x193A1A0, 0x21D19;
-    byte JetLevel      : 0x193A1A0, 0x21D69;
-    byte JetGameReady  : 0x193A1A0, 0x23294;
-    byte JetGameGo     : 0x193A1A0, 0x232AC;
-    byte JetEditReady  : 0x193A1A0, 0x23234;
-    byte JetEditGo     : 0x193A1A0, 0x2324C;
-    int  XmasScore     : 0x193A1A0, 0x217B7;
-    byte XmasLevel     : 0x193A1A0, 0x21807;
-    byte XmasGameReady : 0x193A1A0, 0x22E72;
-    byte XmasGameGo    : 0x193A1A0, 0x22E8A;
-    byte XmasEditReady : 0x193A1A0, 0x22E12;
-    byte XmasEditGo    : 0x193A1A0, 0x22E2A;
+    string26 Regular    : 0x193A1A0, 0x626F4;
+    string26 Christmas  : 0x193A1A0, 0x62314;
+    string26 Alpha      : 0x193A1A0, 0x1A514;
+    int   JetScore      : 0x193A1A0, 0x21D19;
+    byte  JetLevel      : 0x193A1A0, 0x21D69;
+    byte  JetGameReady  : 0x193A1A0, 0x23294;
+    byte  JetGameGo     : 0x193A1A0, 0x232AC;
+    byte  JetEditReady  : 0x193A1A0, 0x23234;
+    byte  JetEditGo     : 0x193A1A0, 0x2324C;
+    int   XmasScore     : 0x193A1A0, 0x217B7;
+    byte  XmasLevel     : 0x193A1A0, 0x21807;
+    byte  XmasGameReady : 0x193A1A0, 0x22E72;
+    byte  XmasGameGo    : 0x193A1A0, 0x22E8A;
+    byte  XmasEditReady : 0x193A1A0, 0x22E12;
+    byte  XmasEditGo    : 0x193A1A0, 0x22E2A;
+    int   AlphaScore    : 0x193A1A0, 0x19264;
+    byte  AlphaLevel    : 0x193A1A0, 0x19284;
+    int   AlphaPlaying  : 0x193A1A0, 0x122F9E5;
+    byte  AlphaDoor     : 0x193A1A0, 0x19349;
+    short AlphaUpDown   : 0x193A1A0, 0x2150E;
+    short AlphaUpDownEd : 0x193A1A0, 0x2149A;
 }
 
 startup
@@ -39,6 +46,10 @@ init
         else vars.State = 0xFF;
         vars.Score = current.XmasScore;
         vars.Level = current.XmasLevel;
+    } else if (current.Alpha == "   BLANKET                ") {
+        vars.State = 0xFF;
+        vars.Score = current.AlphaScore;
+        vars.Level = current.AlphaLevel;
     } else {
         vars.State = 0xFF;
         vars.Score = 0;
@@ -69,6 +80,19 @@ update
         else vars.State = 0xFF;
         vars.Score = current.XmasScore;
         vars.Level = current.XmasLevel;
+    } else if (current.Alpha == "   BLANKET                ") {
+        if (current.AlphaPlaying == 0x007A7A00) {
+            if (old.AlphaPlaying == 0x007A7A00) {
+                if (vars.OldState == 1) {
+                    var UpDown = (old.AlphaUpDownEd == 0x482D)?(current.AlphaUpDownEd):(current.AlphaUpDown);
+                    if (UpDown >= -1 && UpDown <= 1) vars.State = 0;
+                } else if (vars.OldState == 0 && current.AlphaDoor == 69) vars.State = 4;
+            } else vars.State = 1;
+        } else {
+            vars.State = 0xFF;
+        }
+        vars.Score = current.AlphaScore;
+        vars.Level = current.AlphaLevel;
     } else {
         vars.State = 0xFF;
         vars.Score = 0;
