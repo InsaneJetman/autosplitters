@@ -20,6 +20,7 @@ init
 {
     vars.DOSBoxVersions = new Dictionary<string, int> {
         { "0, 74, 3, 0", 0x193C370 },
+        { "0, 74, 2, 0", 0x193E370 },
         { "0, 74, 0, 0", 0x193A1A0 }
     };
 
@@ -38,7 +39,11 @@ init
     };
     vars.JetScanWatchers = new MemoryWatcherList {
         new StringWatcher(new DeepPointer(vars.MemoryStart, 0x626F4), 26) { Name = "Regular" },
-        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x63114), 26) { Name = "Shareware" },
+        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x61FC4), 26) { Name = "Shareware v1.0" },
+        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x62DD4), 26) { Name = "Shareware v1.1" },
+        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x61C64), 26) { Name = "Shareware v1.2" },
+        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x63104), 26) { Name = "Shareware v1.3" },
+        new StringWatcher(new DeepPointer(vars.MemoryStart, 0x63114), 26) { Name = "Shareware v1.4" },
         new StringWatcher(new DeepPointer(vars.MemoryStart, 0x62314), 26) { Name = "Christmas" },
         new StringWatcher(new DeepPointer(vars.MemoryStart, 0x1A514), 26) { Name = "Alpha" }
     };
@@ -57,8 +62,40 @@ init
                 vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x232AC)) { Name = "GameGo" });
                 vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23234)) { Name = "EditReady" });
                 vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x2324C)) { Name = "EditGo" });
-            } else if (vars.JetScanWatchers["Shareware"].Current == " WELCOME TO    JETPACK!   ") {
-                vars.JetpackVersion = "Shareware";
+            } else if (vars.JetScanWatchers["Shareware v1.0"].Current == " WELCOME TO    JETPACK!   ") {
+                vars.JetpackVersion = "Shareware v1.0";
+                vars.JetpackWatchers.Add(new MemoryWatcher<int>   (new DeepPointer(vars.MemoryStart, 0x21B17)) { Name = "Score" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<short> (new DeepPointer(vars.MemoryStart, 0x21B47)) { Name = "Level" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x2320C)) { Name = "GameReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x23224)) { Name = "GameGo" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x2316C)) { Name = "EditReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x23184)) { Name = "EditGo" });
+            } else if (vars.JetScanWatchers["Shareware v1.1"].Current == " WELCOME TO    JETPACK!   ") {
+                vars.JetpackVersion = "Shareware v1.1";
+                vars.JetpackWatchers.Add(new MemoryWatcher<int>   (new DeepPointer(vars.MemoryStart, 0x228B7)) { Name = "Score" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<short> (new DeepPointer(vars.MemoryStart, 0x22907)) { Name = "Level" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23FF2)) { Name = "GameReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x2400A)) { Name = "GameGo" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23F92)) { Name = "EditReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x23FAA)) { Name = "EditGo" });
+            } else if (vars.JetScanWatchers["Shareware v1.2"].Current == " WELCOME TO    JETPACK!   ") {
+                vars.JetpackVersion = "Shareware v1.2";
+                vars.JetpackWatchers.Add(new MemoryWatcher<int>   (new DeepPointer(vars.MemoryStart, 0x21737)) { Name = "Score" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<short> (new DeepPointer(vars.MemoryStart, 0x21787)) { Name = "Level" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x22E86)) { Name = "GameReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x22E9A)) { Name = "GameGo" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x22E26)) { Name = "EditReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x22E3A)) { Name = "EditGo" });
+            } else if (vars.JetScanWatchers["Shareware v1.3"].Current == " WELCOME TO    JETPACK!   ") {
+                vars.JetpackVersion = "Shareware v1.3";
+                vars.JetpackWatchers.Add(new MemoryWatcher<int>   (new DeepPointer(vars.MemoryStart, 0x22727)) { Name = "Score" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<short> (new DeepPointer(vars.MemoryStart, 0x22777)) { Name = "Level" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23CFE)) { Name = "GameReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x23D1A)) { Name = "GameGo" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23C9E)) { Name = "EditReady" });
+                vars.JetpackWatchers.Add(new MemoryWatcher<byte>  (new DeepPointer(vars.MemoryStart, 0x23CBA)) { Name = "EditGo" });
+            } else if (vars.JetScanWatchers["Shareware v1.4"].Current == " WELCOME TO    JETPACK!   ") {
+                vars.JetpackVersion = "Shareware v1.4";
                 vars.JetpackWatchers.Add(new MemoryWatcher<int>   (new DeepPointer(vars.MemoryStart, 0x22737)) { Name = "Score" });
                 vars.JetpackWatchers.Add(new MemoryWatcher<short> (new DeepPointer(vars.MemoryStart, 0x22787)) { Name = "Level" });
                 vars.JetpackWatchers.Add(new MemoryWatcher<ushort>(new DeepPointer(vars.MemoryStart, 0x23D0E)) { Name = "GameReady" });
@@ -110,7 +147,11 @@ update
 
     switch ((string)vars.JetpackVersion) {
     case "Regular":
-    case "Shareware":
+    case "Shareware v1.0":
+    case "Shareware v1.1":
+    case "Shareware v1.2":
+    case "Shareware v1.3":
+    case "Shareware v1.4":
     case "Christmas":
         if (vars.JetpackWatchers["GameReady"].Current == 0xFFFF) vars.State = vars.JetpackWatchers["GameGo"].Current;
         else if (vars.JetpackWatchers["EditReady"].Current == 0xFFFF) vars.State = vars.JetpackWatchers["EditGo"].Current;
