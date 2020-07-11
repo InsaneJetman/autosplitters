@@ -1,4 +1,6 @@
 // Auto Splitter for Jetpack
+// by InsaneJetman
+// v1.0
 
 state("DOSBOX")
 {
